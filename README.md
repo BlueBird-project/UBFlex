@@ -1,5 +1,3 @@
-"# UBFlex
-
 **UBFlex** is the BlueBird common interface for interoperability between
 building-flexibility services and connected external systems.
 
