@@ -1,0 +1,72 @@
+knowledge_engine:
+  knowledge_base_id: 'https://tge.pcss.pl/ke/smartconnector'
+  kb_name: 'TGE dayahead offer'
+  kb_description: 'TGE dayahead market agent'
+  include:
+    - "../dam/dam.yaml"
+  prefixes:
+    kb: "${KB_ID}/"
+    ubmarket: "https://ubflex.bluebird.eu/market/"
+    rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    rdfs: "http://www.w3.org/2000/01/rdf-schema#"
+    s4ener: "https://saref.etsi.org/saref4ener/"
+    xsd: "http://www.w3.org/2001/XMLSchema#"
+    time: "http://www.w3.org/2006/time#"
+  graph_patterns:
+    market:
+      name: "market"
+      description: "Basic information about the market"
+      prefixes:
+        s4city: "https://saref.etsi.org/saref4city/"
+        foaf: "http://xmlns.com/foaf/0.1/"
+      pattern:
+        - ' kb:market rdf:type ubmarket:DayAheadMarket ;   rdfs:subClassOf foaf:Agent ;'
+        - '     ubmarket:hasAdministrativeArea ?country_uri .'
+        - ' ubmarket:DayAheadMarket rdf:type ubmarket:MarketType  .'
+        - ' ?country_uri rdf:type s4city:Country ; ubmarket:hasISO3166Name "Poland" .'
+    market-offer-info-filtered:
+      name: "market-offer-info-filtered"
+      description: "Information about new offer with time filter"
+      prefixes:
+        time: "http://www.w3.org/2006/time#"
+      pattern:
+        - '  kb:market   rdf:type ubmarket:DayAheadMarket  .' 
+        - ' ?offer_uri rdf:type ubmarket:MarketTimeSeries .'
+        - ' ?offer_uri ubmarket:hasMarketSequence ?sequence .' 
+        - ' ?offer_uri s4ener:producedBy kb:market  .'
+        - ' ?offer_uri s4ener:hasUpdateRate  ?update_rate.'
+        - ' ?offer_uri s4ener:hasCreationTime ?time_create .' 
+        - ' ?offer_uri s4ener:hasEffectivePeriod  ?duration_uri.'
+        - ' ?duration_uri  rdf:type  time:Interval; time:hasXSDDuration ?duration .'
+        - ' ?ts_interval_uri rdf:type time:Interval; time:hasBeginning ?ts_date_from; time:hasEnd ?ts_date_to .'
+    market-offer-info:
+      name: "market-offer-info"
+      description: "Daily market metadata"
+      prefixes:
+      pattern:
+        - '  kb:market   rdf:type ubmarket:DayAheadMarket  .' 
+        - ' ?offer_uri rdf:type ubmarket:MarketTimeSeries .'
+        - ' ?offer_uri s4ener:producedBy  kb:market  .'
+        - ' ?offer_uri s4ener:hasUpdateRate  ?update_rate.'
+        - ' ?offer_uri ubmarket:hasMarketSequence ?sequence .'
+        - ' ?offer_uri s4ener:hasCreationTime ?time_create .' 
+        - ' ?offer_uri s4ener:hasEffectivePeriod  ?duration_uri.'
+        - ' ?duration_uri  rdf:type  time:Interval; time:hasXSDDuration ?duration .'
+
+    # market-offer:
+    #   name: "market-offer"
+    #   description: "Daily offer of the market"
+    #   prefixes:
+    #     saref: "https://saref.etsi.org/core/"
+    #   pattern:
+    #     - '?offer_uri rdf:type ubmarket:MarketTimeSeries .'
+    #     - '?dp s4ener:belongsToTimeSeries ?offer_uri .'
+    #     - '?dp rdf:type s4ener:DataPoint .'
+    #     - '?dp saref:hasTimestamp ?ts .'
+    #     - '?dp saref:hasResult ?dpr .'
+    #     - '?dpr saref:hasValue ?value .'
+    #     - '?dpr saref:isMeasuredIn ubmarket:PLNPerMegawattHour .'
+    #     - '?dp s4ener:hasEffectivePeriod  ?duration_uri.'
+    #     - '?duration_uri  rdf:type  time:Interval; time:hasXSDDuration ?duration .'
+
+

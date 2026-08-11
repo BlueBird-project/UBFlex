@@ -4,7 +4,7 @@ knowledge_engine:
   prefixes:
     ubmarket: "https://ubflex.bluebird.eu/market/" 
     rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    rdfs: "<http://www.w3.org/2000/01/rdf-schema#>"
+    rdfs: "http://www.w3.org/2000/01/rdf-schema#"
     s4ener: "https://saref.etsi.org/saref4ener/"
     time: "http://www.w3.org/2006/time#"
     saref: "https://saref.etsi.org/core/"
