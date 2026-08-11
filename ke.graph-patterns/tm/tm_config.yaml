@@ -12,10 +12,10 @@ knowledge_engine:
     saref: "https://saref.etsi.org/core/"
     time: "http://www.w3.org/2006/time#"
   include:
-    - "./resources/deployment/ki/dam.yaml"
-    - "./resources/deployment/ki/fm.yaml"
-    - "./resources/deployment/ki/dt.yaml"
-  #    - "./resources/deployment/ki/capacity.yml" TODO:
+    - "../dam/dam.yaml"
+    - "../fm/flexibility_manager.yaml"
+    - "../dt/digital_twin.yaml"
+    # - "./tou.yaml"
   graph_patterns:
     tou-price:
       name: "tou-price"
