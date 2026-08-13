@@ -1,2 +1,6 @@
 deployments/local_dev/env/.env.secrets
 ontology/PyUBFlex/.idea/
+deployments/local_dev/.env.test
+ontology/PyUBFlex/PyUBFlex.iml
+ontology/PyUBFlex/PyUBFlex/.idea/workspace.xml
+deployments/.idea/
