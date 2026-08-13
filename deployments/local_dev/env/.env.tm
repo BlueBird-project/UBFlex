@@ -1,0 +1,16 @@
+
+KE_KNOWLEDGE_BASE_ID=http://tm.bluebird.com
+#APP_USE_SCHEDULER=True
+#APP_USE_REST_API=True
+#APP_USE_KE_API=True
+
+#KI_KI_CONFIG_PATH=/app/resources/graph-patterns/tm/tm_config.yaml
+
+DB_TABLE_PREFIX=local_tm_
+DB_INIT=True
+
+
+
+KE_EXTEND_GRAPH_PATTERNS=True
+KE_EXTEND_GRAPH_PATTERNS_MODE=0101
+KE_NODES_UNSPECIFIED_TYPES=True

@@ -1,0 +1,105 @@
+services:
+  tm-service:
+    image: "${REGISTRY_DOMAIN}/${REGISTRY_PROJECT}/trading-manager:${TM_TAG}"
+    #    image: "bluebird.com/bluebird/trading-manager:0.2.0"
+    ports:
+      - "9090:8080"
+    depends_on:
+      - tm-db
+      - tm-ke-service
+      - entsoe-service
+    env_file:
+      - path: ".env"
+        required: true # default
+      - path: "./env/.env.tm"
+        required: true # default
+    environment:
+      - KE_REST_ENDPOINT=http://tm-ke-service:8280/rest/
+    restart: on-failure:5
+    volumes:
+      - ./docker/trading-manager/app_config.yaml:/config/app_config.yaml
+    networks:
+      - tm-net
+
+  entsoe-service:
+    image: "${REGISTRY_DOMAIN}/${REGISTRY_PROJECT}/local-entsoe-service:latest"
+    ports:
+      - "11001:8080"
+    build:
+      dockerfile: ./docker/entsoe-service/Dockerfile
+      args:
+        REGISTRY_DOMAIN: ${REGISTRY_DOMAIN}
+        REGISTRY_PROJECT: ${REGISTRY_PROJECT}
+        IMAGE_TAG: ${ENTSO_E_TAG}
+      tags:
+        - "${REGISTRY_DOMAIN}/${REGISTRY_PROJECT}/local-entsoe-service:latest"
+    depends_on:
+      - tm-db
+      - tm-ke-service
+    restart: on-failure:5
+    env_file:
+      - path: ".env"
+        required: true # default
+      - path: "./env/.env.entsoe"
+        required: true # default
+      - path: "./env/.env.secrets"
+        required: true # default
+    environment:
+      - KE_REST_ENDPOINT=http://tm-ke-service:8280/rest/
+    networks:
+      - tm-net
+    volumes:
+      - "${ENTSOE_MARKET_CONFIG}:/app/resources/deployment/entsoe.yaml"
+
+  tm-db:
+    image: postgres:alpine3.23
+    environment:
+      - POSTGRESQL_USERNAME=${DB_USER}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRESQL_PASSWORD=${DB_PASS}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRESQL_DATABASE=${DB_NAME}
+      - POSTGRES_DB=${DB_NAME}
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    networks:
+      - tm-net
+    env_file:
+      - path: ".env"
+        required: true # default
+      - path: "./env/.env.secrets"
+        required: false # default
+    volumes:
+      - ${PG_PATH}:/var/lib/postgresql
+  tm-db-adminer:
+    image: adminer:latest
+    depends_on:
+      - tm-db
+    ports:
+      - 9199:8080
+    networks:
+      - tm-net
+  tm-ke-service:
+    restart: unless-stopped
+    image: ghcr.io/tno/knowledge-engine/smart-connector:1.5.0
+    environment:
+      KE_RUNTIME_PORT: 8280
+      KE_KB_WAIT_TIMEOUT: 15
+      KE_HTTP_TIMEOUT: 10
+      # documentation about these configuration property can be found in the SmartConnectorConfig class
+#      ke.runtime.port = 8081
+#      ke.runtime.exposed.url = http://${ke.runtime.hostname}:${ke.runtime.port}
+#      ke.kb.wait.timeout = 10
+#      ke.http.timeout = 5
+#      kd.url = http://localhost:8080
+#      sc.validate.outgoing.bindings.wrt.incoming.bindings = true
+#      ke.runtime.hostname = localhost
+#      ke.reasoner.level = 2
+    ports:
+      - 8280:8280
+    networks:
+      - tm-net
+networks:
+  tm-net:
+    driver: bridge

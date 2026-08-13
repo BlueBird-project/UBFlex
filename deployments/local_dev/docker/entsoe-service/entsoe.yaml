@@ -1,0 +1,91 @@
+entsoe_api:
+  subscribed_eic:
+    - code: 10YPL-AREA-----S
+      market_types:
+        day_ahead:
+          - sequence: None
+            publish: "13:00"
+            offer_length: 96
+            max_delay: PT2H
+    - code: 10Y1001A1001A82H
+      market_types:
+        day_ahead:
+          - sequence: "1"
+            publish: "13:00"
+            offer_length: 96
+            max_delay: PT2H
+          - sequence: "2"
+            publish: "16:00"
+            offer_length: 96
+            max_delay: PT2H
+    - code: 10YAT-APG------L
+      market_types:
+        day_ahead:
+          - sequence: "1"
+            publish: "13:00"
+            offer_length: 96
+            max_delay: PT2H
+    - code: 10YBE----------2
+      market_types:
+        day_ahead:
+          - sequence: None
+            publish: "13:00"
+            offer_length: 96
+            max_delay: PT2H
+    - code: 10YES-REE------0
+      market_types:
+        day_ahead:
+          - sequence: None
+            publish: "13:00"
+            offer_length: 96
+            max_delay: PT2H
+        intraday:
+          - sequence: "1"
+            publish: "13:00"
+            offer_length: 96
+            max_delay: PT2H
+          - sequence: "2"
+            publish: "15:00"
+            offer_length: 96
+            max_delay: PT2H
+          - sequence: "3"
+            publish: "18:00"
+            offer_length: 48
+            max_delay: PT2H
+  #       - intraday
+  eic_codes:
+    10Y1001A1001A82H:
+      code: "10Y1001A1001A82H"
+      area_names:
+        - "BZN|DE-LU"
+      country_codes:
+        - "Germany"
+        - "DE"
+    10YPL-AREA-----S:
+      code: "10YPL-AREA-----S"
+      area_names:
+        - "BZN|PL"
+      country_codes:
+        - "Poland"
+        - "PL"
+    10YAT-APG------L:
+      code: "10YAT-APG------L"
+      area_names:
+        - "BZN|AT"
+      country_codes:
+        - "Austria"
+        - "AT"
+    10YES-REE------0:
+      code: "10YES-REE------0"
+      area_names:
+        - "BZN|ES"
+      country_codes:
+        - "Spain"
+        - "ES"
+    10YBE----------2:
+      code: "10YBE----------2"
+      area_names:
+        - "BZN|BE"
+      country_codes:
+        - "Belgium"
+        - "BE"
