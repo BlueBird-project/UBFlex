@@ -5,3 +5,4 @@ ontology/PyUBFlex/PyUBFlex.iml
 ontology/PyUBFlex/PyUBFlex/.idea/workspace.xml
 deployments/.idea/
 deployments/local_dev/images/local-dt-service.tar
+deployments/local_dev/images/
