@@ -15,6 +15,7 @@ knowledge_engine:
     - "../dam/dam.yaml"
     - "../fm/flexibility_manager.yaml"
     - "../dt/digital_twin.yaml"
+    - "./trading_manager.yaml"
     # - "./tou.yaml"
   graph_patterns:
     tou-price:

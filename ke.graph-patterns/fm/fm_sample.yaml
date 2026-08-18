@@ -13,6 +13,7 @@ knowledge_engine:
   include:
     - "../dam/dam.yaml"
     - "./flexibility_manager.yaml"
+    - "../tm/trading_manager.yaml"
   graph_patterns:
     tou-price:
       name: "tou-price"

@@ -14,6 +14,7 @@ knowledge_engine:
     - "../dam/dam.yaml"
     - "./digital_twin.yaml"
     - "./trading_manager.yaml"
+    - "../tm/trading_manager.yaml"
 
   graph_patterns:
     dt-ts-info:

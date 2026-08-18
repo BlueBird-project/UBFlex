@@ -2,15 +2,6 @@ knowledge_engine:
   kb_name: ''
   kb_description: ''
   graph_patterns:
-    tm-info:
-      name: "tm-info"
-      description: "Information TM. Used in ANSWER,ASK,POST,REACT."
-      prefixes:
-        xsd: "http://www.w3.org/2001/XMLSchema#"
-      pattern:
-        - ' ?tm_uri rdf:type saref:Service . '
-        - ' ?tm_uri saref:hasOperation ?command_uri . '
-        - ' ?command_uri  saref:observes ?market_uri . '
     tm-market-offer-info:
       name: "tm-market-offer-info"
       description: "Information about new offer. Used in ANSWER,ASK,POST,REACT."
