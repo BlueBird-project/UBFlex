@@ -151,7 +151,7 @@ docker save -o "./images/base-entsoe-service.latest.tar" "$Env:REGISTRY_DOMAIN/$
 
 ```
 
-## Samples Digital Twin and Flexibility Manager clients
+## Manage sample Digital Twin and Flexibility Manager Smart Client dockers
 
 ### Build
 
@@ -175,7 +175,7 @@ volumes:
 ...
 ```
 
-### Logs
+### Check Logs
 
 ```shell
 
