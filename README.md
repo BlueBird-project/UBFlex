@@ -61,11 +61,10 @@ It does not replace the domain logic of those components:
 | Directory | Contents |
 |---|---|
 | `ontology/` | BlueBird-specific ontology definitions and documentation |
-| `graph-patterns/` | Graph-pattern configurations for the relevant KE Smart Connectors |
-| `smart-connectors/` | Smart Connector configuration and integration resources |
-| `compose/` | Docker or Docker Compose configuration, where applicable |
+| `ke.graph-patterns/` | Graph-pattern configurations for the relevant KE Smart Connectors |
+| `deployments/local_dev/docker/` | Smart Connector dockers configuration |
+| `deployments/local_dev/readme.md` | deployment description |
 | `docs/` | Architecture, integration, compatibility and usage documentation |
-| `examples/` | Validated examples of UBFlex integrations |
 
 The repository contents will evolve as the relevant artefacts are agreed,
 implemented and validated.
