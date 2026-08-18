@@ -1,16 +1,17 @@
 
-## Services
+## Service Description
 
 ### ENTSO-E
 
-#### Configure
+#### Docker configuration 
 
 Service documentation is [here](https://github.com/BlueBird-project/tm-market-plugins/blob/main/entso-e/README.md)
-List of market codes is [here](https://transparencyplatform.zendesk.com/hc/en-us/articles/15885757676308-Area-List-with-Energy-Identification-Code-EIC)
+
+List of ENTSO-E market/region codes is [here](https://transparencyplatform.zendesk.com/hc/en-us/articles/15885757676308-Area-List-with-Energy-Identification-Code-EIC)
 
 
 Configuration:
-1. Obtain API Token (ENTSOE_TOKEN) - [acquire token](https://www.amsleser.no/blog/post/21-obtaining-api-token-from-entso-e)  
+1. Obtain API Token (ENTSOE_TOKEN) ( [acquire token](https://www.amsleser.no/blog/post/21-obtaining-api-token-from-entso-e) ) 
 2. Set API Token in [./env/.env.secrets](./env/.env.secrets)
 3. Configure markets [./docker/entsoe-service/entsoe.yaml](./docker/entsoe-service/entsoe.yaml)
 
@@ -19,17 +20,19 @@ Configuration:
 
  * Service on start loads prices for the last 5 days for the configured markets
 
-### Trading Manager
+###  Trading Manager
 
-#### Configuration
+Service documentation is [here](https://github.com/BlueBird-project/trading-manager/blob/main/tm-service/README.md) 
 
-Sample TM configuration with subscribed country markets can be found [here (configuration loaded in compose.yaml)](./docker/trading-manager/app_config.yaml)
+#### Docker Configuration
+
+Sample TM configuration with subscribed country markets ( `'app.country_list'`) can be found [here (configuration loaded in compose.yaml)](./docker/trading-manager/app_config.yaml)
 and  [here](./docker/trading-manager/config.yaml)
 
 ### Sample FM Service
 
-This service provides sample FM Smart Client implementation with sample interactions fed with random data.
-Docker configuration is [here](./docker/fm-service/Dockerfile) and FM service sources are located[here](./docker/fm-service/examples)   
+This service provides sample Flexibility Manager Smart Client implementation with sample interactions fed with random data.
+Docker configuration is [here](./docker/fm-service/Dockerfile) and FM service sources are located [here](./docker/fm-service/examples)   
 
 
 ### Sample DT service 
