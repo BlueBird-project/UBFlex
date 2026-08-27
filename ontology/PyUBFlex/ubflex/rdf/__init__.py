@@ -8,3 +8,7 @@ PLNPerMWH = URIRef(value="PLNPerMegawattHour", base=UBFLEX_MARKET_BASE)
 
 DAYAHEAD_MARKET_TYPE = URIRef(value="DayAheadMarket", base=UBFLEX_MARKET_BASE)
 INTRADAY_MARKET_TYPE = URIRef(value="IntradayMarket", base=UBFLEX_MARKET_BASE)
+
+
+
+UBMARKET_FORECAST = URIRef("Forecast", base=UBFLEX_MARKET_BASE)
