@@ -12,15 +12,14 @@
 ubmarket:Forecast
     a            rdfs:Class ;
  	rdfs:subClassOf s4ener:TimeSeries ;
-    rdfs:comment "Forecasted timeseries"@en ;
+    rdfs:comment "Represents timeseries of forecasted values"@en ;
     rdfs:label   "Forecast" .
 
 ubmarket:ForecastPropertyValue
     a            rdfs:Class ;
  	rdfs:subClassOf saref:PropertyValue ;
-    rdfs:comment "Forecasted PropertyValue"@en ;
+    rdfs:comment "Describes the forecasted value for a property. Distinguishes measured/scheduled values with forecasted values.  ForecastPropertyValue"@en ;
     rdfs:label   "ForecastPropertyValue" .
-
 
      
 
