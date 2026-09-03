@@ -17,11 +17,22 @@ knowledge_engine:
     - "../tm/trading_manager.yaml"
 
   graph_patterns:
+    self-dt-info:
+      name: "self-dt-info"
+      description: "Digital Twin info. Used in ANSWER,ASK,POST,REACT."
+      prefixes:
+        s4city: "https://saref.etsi.org/saref4city/"
+        foaf: "http://xmlns.com/foaf/0.1/"
+        saref: "https://saref.etsi.org/core/"
+      pattern:
+        - ' kb:service rdf:type saref:Service ; saref:represents ?command_uri .'
+        - ' ?command_uri  rdf:type saref:CommandOfInterest; saref:observes ?market_uri .'
+        - ' ?command_uri  rdf:type ubmarket:MarketType .'
     dt-ts-info:
       name: "dt-ts-info"
       description: "DT's timeseries's metadata, model's , model's parameters, error rates. Used in ANSWER,ASK,POST,REACT."
       required_bindings:
-        - "command_uri"
+        - "forecast_of"
       prefixes:
         xsd: "http://www.w3.org/2001/XMLSchema#"
         saref: "https://saref.etsi.org/core/"
@@ -29,11 +40,12 @@ knowledge_engine:
         om: "http://www.ontology-of-units-of-measure.org/resource/om-2/"
       pattern:
         - ' ?command_uri  saref:hasOutput ?ts_uri; rdf:type saref:CommandOfInterest .'
+        - ' ?command_uri  rdf:type saref:CommandOfInterest; saref:observes ?market_uri .'
         - ' ?ts_uri rdf:type ubmarket:Forecast .'
         - ' ?ts_uri s4ener:hasUpdateRate ${ISP_UNIT} .'
         - ' ?ts_uri s4ener:hasCreationTime ?time_create .'
         - ' ?ts_uri s4ener:hasEffectivePeriod  ?ts_interval_uri .'
-        - ' ?ts_uri ubmarket:isForecastOf ?forecast_of .'
+        - ' ?ts_uri ubmarket:isForecastOf ?forecast_of .' 
         - ' ?ts_interval_uri rdf:type time:Interval; time:hasBeginning ?ts_date_from; time:hasEnd ?ts_date_to . '
     dt-ts:
       name: "dt-ts"

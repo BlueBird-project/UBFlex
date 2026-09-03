@@ -45,10 +45,11 @@ knowledge_engine:
         - ' ?ts_uri rdf:type s4ener:TimeSeries ;  s4ener:producedBy  <http://fm.bluebird.com/> . '
         - ' ?dp s4ener:belongsToTimeSeries ?ts_uri ; rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ;'
         - '   s4ener:hasEffectivePeriod  ubmarket:period_15m ; saref:hasResult ?dpr.'
-        - ' ubmarket:period_15m time:hasXSDDuration ${ISP_UNIT} .'
+        # - ' ubmarket:period_15m time:hasXSDDuration ${ISP_UNIT} .'
         - ' ?dpr saref:hasValue ?value ; saref:isMeasuredIn om:megawatt .'
-        - ' ?cost_dp   saref:hasResult ?cost_dpr .'
-        - ' ?cost_dpr saref:hasValue ?cost ; saref:isMeasuredIn om:euro .'
+        - ' ?dp   saref:hasResult ?cost_dpr .'
+        - ' ?cost_dpr saref:hasValue ?cost ; rdf:type ?cost_dpr_type ; saref:isMeasuredIn om:euro .'
+        - ' ?cost_dpr_type  rdfs:subClassOf saref:PropertyValue .'
     fm-ts-evaluate:
       name: "fm-ts-evaluate"
       description: "Evaluate power demand"
@@ -60,9 +61,10 @@ knowledge_engine:
         - ' ?ts_uri rdf:type s4ener:TimeSeries ;  s4ener:producedBy  <http://fm.bluebird.com/> . '
         - ' ?dp s4ener:belongsToTimeSeries ?ts_uri ; rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ;'
         - '   s4ener:hasEffectivePeriod  ubmarket:period_15m ; saref:hasResult ?dpr.'
-        - ' ubmarket:period_15m time:hasXSDDuration ${ISP_UNIT} .'
+        # - ' ubmarket:period_15m time:hasXSDDuration ${ISP_UNIT} .'
         - ' ?dpr saref:hasValue ?value ; saref:isMeasuredIn om:megawatt .'
       result_pattern:
         - ' ?dp   saref:hasResult ?cost_dpr .'
-        - ' ?cost_dpr saref:hasValue ?cost ; saref:isMeasuredIn om:euro .'
+        - ' ?cost_dpr saref:hasValue ?cost ;  rdf:type ?cost_dpr_type ; saref:isMeasuredIn om:euro .'        
+        - ' ?cost_dpr_type  rdfs:subClassOf saref:PropertyValue .'
 
