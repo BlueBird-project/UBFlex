@@ -1,6 +1,8 @@
+@prefix owl:      <http://www.w3.org/2002/07/owl#> .
 @prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix saref:    <https://saref.etsi.org/core/> .
-@prefix time:     <http://www.w3.org/2006/time#/>.
+@prefix time:     <http://www.w3.org/2006/time#> .
 @prefix ubmarket: <https://ubflex.bluebird.eu/market/> .
 @prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
 
@@ -17,4 +19,26 @@ ubmarket:period_15m
 
 ubmarket:period_60m
     rdf:type            time:Interval ;
-    time:hasXSDDuration "PT60M"^^xsd:duration .
+    time:hasXSDDuration "PT60M"^^xsd:duration . 
+
+ubmarket:get_data_command
+    a               owl:NamedIndividual ;
+    rdfs:label      "get_data_command"@en .
+
+ 
+# ============================================================
+# Energy market units
+# ============================================================
+
+ubmarket:EURPerMegawattHour
+    a owl:Class ;
+    rdfs:subClassOf saref:UnitOfMeasure ;
+    rdfs:comment "Euro per megawatt-hour."@en ;
+    rdfs:label "EUR per megawatt-hour"@en .
+
+
+ubmarket:PLNPerMegawattHour
+    a owl:Class ;
+    rdfs:subClassOf saref:UnitOfMeasure ;
+    rdfs:comment "Polish zloty per megawatt-hour."@en ;
+    rdfs:label "PLN per megawatt-hour"@en .
