@@ -16,7 +16,7 @@ knowledge_engine:
         - " ?dam_service rdf:type saref:Device  ; saref:hasFunctionOfInterest ?dam_function . "
         - " ?dam_function rdf:type saref:FunctionOfInterest; saref:hasCommandOfInterest  ?dam_data_command  . "
         - " ?dam_data_command rdf:type saref:CommandOfInterest;  saref:hasCommandKind ubmarket:get_data_command ; "
-        - "           saref:observes  ubmarket:MarketType ."
+        - " saref:observes  ubmarket:MarketType ."
     dam-start-command:
       name: "dam-start-command"
       description: "Graph pattern for starting data acquisition task" 
@@ -39,10 +39,9 @@ knowledge_engine:
         s4city: "https://saref.etsi.org/saref4city/"
         foaf: "http://xmlns.com/foaf/0.1/" 
       pattern:
-        - " ?market_uri rdf:type ?market_type ; rdfs:subClassOf foaf:Agent ;"
-        - "      ubmarket:hasAdministrativeArea ?country_uri ."
-        - " ?country_uri rdf:type s4city:Country ; ubmarket:hasISO3166Name ?country_name ."
-        - " ?market_type rdf:type ubmarket:MarketType  ."
+        - " ?market_uri rdf:type ubmarket:Market   ; ubmarket:hasAdministrativeArea ?country_uri ; "
+        - " ubmarket:hasMarketType ?market_type . "
+        - " ?country_uri rdf:type s4city:Country ; ubmarket:hasCountryName ?country_name ."
     market-offer-info-filtered:
       name: "market-offer-info-filtered"
       description: "Information about new offer with time filter. Used in ANSWER,ASK ."
@@ -51,8 +50,7 @@ knowledge_engine:
       prefixes:
         xsd: "http://www.w3.org/2001/XMLSchema#" 
       pattern:
-        - " ?market_uri rdf:type ?market_type ."
-        - " ?market_type rdfs:subClassOf ubmarket:MarketType . "
+        - " ?market_uri rdf:type ubmarket:Market ; ubmarket:hasMarketType ?market_type ." 
         - " ?offer_uri rdf:type ubmarket:MarketTimeSeries ."
         - " ?offer_uri s4ener:producedBy ?market_uri ."
         - " ?offer_uri ubmarket:hasMarketSequence ?sequence ."
@@ -69,8 +67,7 @@ knowledge_engine:
       prefixes:
         xsd: "http://www.w3.org/2001/XMLSchema#"
       pattern:
-        - " ?market_uri rdf:type ?market_type ."
-        - " ?market_type rdfs:subClassOf ubmarket:MarketType ."
+        - " ?market_uri rdf:type ubmarket:Market ; ubmarket:hasMarketType ?market_type ."  
         - " ?offer_uri rdf:type ubmarket:MarketTimeSeries ."
         - " ?offer_uri ubmarket:hasMarketSequence ?sequence ."
         - " ?offer_uri s4ener:producedBy ?market_uri ."

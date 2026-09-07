@@ -10,7 +10,7 @@ knowledge_engine:
       prefixes:
         xsd: "http://www.w3.org/2001/XMLSchema#"
       pattern:
-        - ' ?market_uri rdf:type ?market_type .'
+        - ' ?market_uri ubmarket:hasMarketType ?market_type .'
         - ' ?offer_uri rdf:type ubmarket:MarketTimeSeries .'
         - ' ?offer_uri ubmarket:hasMarketSequence ?sequence .'
         - ' ?offer_uri s4ener:producedBy ?market_uri .'

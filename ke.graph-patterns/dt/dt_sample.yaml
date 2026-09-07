@@ -27,7 +27,7 @@ knowledge_engine:
       pattern:
         - ' kb:service rdf:type saref:Service ; saref:represents ?command_uri .'
         - ' ?command_uri  rdf:type saref:CommandOfInterest; saref:observes ?market_uri .'
-        - ' ?command_uri  rdf:type ubmarket:MarketType .'
+        - ' ?market_uri  rdf:type ubmarket:MarketType .'
     dt-ts-info:
       name: "dt-ts-info"
       description: "DT's timeseries's metadata, model's , model's parameters, error rates. Used in ANSWER,ASK,POST,REACT."
