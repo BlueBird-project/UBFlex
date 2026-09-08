@@ -9,10 +9,7 @@ knowledge_engine:
       prefixes:
         xsd: "http://www.w3.org/2001/XMLSchema#"
         time: "http://www.w3.org/2006/time#"
-        saref: "https://saref.etsi.org/core/"
-      #      pattern:
-      #        - ' <http://fm.bluebird.com/>  rdf:type saref:Service . '
-      #        - ' ?ts_interval_uri rdf:type time:Interval; time:hasBeginning ?ts_date_from; time:hasEnd ?ts_date_to .'
+        saref: "https://saref.etsi.org/core/" 
       pattern:
         - ' <http://fm.bluebird.com/>  rdf:type saref:Service . '
         - ' ?ts_interval_uri rdf:type time:Interval; time:hasBeginning ?ts_date_from; time:hasEnd ?ts_date_to .'
@@ -44,8 +41,7 @@ knowledge_engine:
       pattern:
         - ' ?ts_uri rdf:type s4ener:TimeSeries ;  s4ener:producedBy  <http://fm.bluebird.com/> . '
         - ' ?dp s4ener:belongsToTimeSeries ?ts_uri ; rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ;'
-        - '   s4ener:hasEffectivePeriod  ubmarket:period_15m ; saref:hasResult ?dpr.'
-        # - ' ubmarket:period_15m time:hasXSDDuration ${ISP_UNIT} .'
+        - '   s4ener:hasEffectivePeriod  ubmarket:period_15m ; saref:hasResult ?dpr.' 
         - ' ?dpr saref:hasValue ?value ; saref:isMeasuredIn om:megawatt .'
         - ' ?dp   saref:hasResult ?cost_dpr .'
         - ' ?cost_dpr saref:hasValue ?cost ; rdf:type ?cost_dpr_type ; saref:isMeasuredIn om:euro .'
@@ -60,8 +56,7 @@ knowledge_engine:
       pattern:
         - ' ?ts_uri rdf:type s4ener:TimeSeries ;  s4ener:producedBy  <http://fm.bluebird.com/> . '
         - ' ?dp s4ener:belongsToTimeSeries ?ts_uri ; rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ;'
-        - '   s4ener:hasEffectivePeriod  ubmarket:period_15m ; saref:hasResult ?dpr.'
-        # - ' ubmarket:period_15m time:hasXSDDuration ${ISP_UNIT} .'
+        - '   s4ener:hasEffectivePeriod  ubmarket:period_15m ; saref:hasResult ?dpr.' 
         - ' ?dpr saref:hasValue ?value ; saref:isMeasuredIn om:megawatt .'
       result_pattern:
         - ' ?dp   saref:hasResult ?cost_dpr .'

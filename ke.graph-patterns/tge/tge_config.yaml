@@ -20,17 +20,16 @@ knowledge_engine:
         s4city: "https://saref.etsi.org/saref4city/"
         foaf: "http://xmlns.com/foaf/0.1/"
       pattern:
-        - ' kb:market rdf:type ubmarket:DayAheadMarket ;   rdfs:subClassOf foaf:Agent ;'
+        - ' kb:market rdf:type ubmarket:Market; ubmarket:hasMarketType ubmarket:DayAheadMarket ;   '
         - '     ubmarket:hasAdministrativeArea ?country_uri .'
-        - ' ubmarket:DayAheadMarket rdf:type ubmarket:MarketType  .'
-        - ' ?country_uri rdf:type s4city:Country ; ubmarket:hasISO3166Name "Poland" .'
+        - ' ?country_uri rdf:type s4city:Country ; ubmarket:hasCountryName "Poland" .'
     market-offer-info-filtered:
       name: "market-offer-info-filtered"
       description: "Information about new offer with time filter"
       prefixes:
         time: "http://www.w3.org/2006/time#"
       pattern:
-        - '  kb:market   rdf:type ubmarket:DayAheadMarket  .' 
+        - ' kb:market rdf:type ubmarket:Market; ubmarket:hasMarketType ubmarket:DayAheadMarket. '
         - ' ?offer_uri rdf:type ubmarket:MarketTimeSeries .'
         - ' ?offer_uri ubmarket:hasMarketSequence ?sequence .' 
         - ' ?offer_uri s4ener:producedBy kb:market  .'
@@ -44,7 +43,7 @@ knowledge_engine:
       description: "Daily market metadata"
       prefixes:
       pattern:
-        - '  kb:market   rdf:type ubmarket:DayAheadMarket  .' 
+        - ' kb:market rdf:type ubmarket:Market; ubmarket:hasMarketType ubmarket:DayAheadMarket .   '
         - ' ?offer_uri rdf:type ubmarket:MarketTimeSeries .'
         - ' ?offer_uri s4ener:producedBy  kb:market  .'
         - ' ?offer_uri s4ener:hasUpdateRate  ?update_rate.'

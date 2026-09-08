@@ -141,7 +141,10 @@ ubmarket:hasAdministrativeArea
     rdfs:comment    "Associates a market with the administrative area in which it operates."@en ;
     rdfs:label      "has administrative area"@en .
 
-
+ubmarket:hasISO3166CountryCode
+    a owl:DatatypeProperty ;
+    rdfs:domain s4city:Country ;
+    rdfs:range xsd:string .
 
 ubmarket:hasEICCode
     a               owl:DatatypeProperty ;
