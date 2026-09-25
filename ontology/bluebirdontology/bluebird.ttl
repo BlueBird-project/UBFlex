@@ -48,6 +48,7 @@ ubmarket:Market
     rdfs:label      "Market"@en .
 
 
+
 ubmarket:MarketAgent
     a               owl:Class ;
     rdfs:subClassOf foaf:Agent ;
@@ -88,6 +89,7 @@ ubmarket:CapacityMarket
     rdfs:subClassOf ubmarket:MarketType ;
     rdfs:comment    "A market for contracted consumer flexibility and associated baseline mechanisms, such as static or dynamic baselines."@en ;
     rdfs:label      "Capacity Market"@en .
+
 
 
 ubmarket:hasMarketSequence
@@ -188,6 +190,7 @@ ubmarket:hasCost
                         owl:unionOf (
                               ubmarket:FlexContractRequest
                               ubmarket:FlexContractOffer
+                              s4ener:BaseLine
                           )
                     ] ;
     rdfs:range       s4ener:DataPoint ;
@@ -200,6 +203,8 @@ ubmarket:DynamicBaseline
     rdfs:subClassOf s4ener:BaseLine ;
     rdfs:comment    "A baseline calculated dynamically based on recent energy consumption."@en ;
     rdfs:label      "Dynamic Baseline"@en .
+
+ 
 
 
 # ============================================================

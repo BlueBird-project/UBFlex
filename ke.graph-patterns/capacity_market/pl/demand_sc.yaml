@@ -1,0 +1,21 @@
+knowledge_engine:
+  knowledge_base_id: 'https://capacity-market.pcss.pl/ke/smartconnector'
+  kb_name: 'Capacity market'
+  kb_description: 'Capacity market'
+  graph_patterns:
+    flex-demand:
+      name: "flex-demand"
+      description: "Market details"
+      prefixes:
+        rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        s4city: "https://saref.etsi.org/s4city"
+        s4ener: "https://saref.etsi.org/s4ener"
+        foaf: "http://xmlns.com/foaf/0.1/"
+        ubmarket: "https://ubeflex.bluebird.eu/market"
+      pattern:
+        - ' ?flex_profile rdf:type s4ener:FlexibilityProfile ; s4ener:receivesPowerLimit ?power_limit ; saref:hasTimestamp  ?ts .' 
+        - '  ?power_limit rdf:type s4ener:PowerLimit ; ;s4ener:isObligatory "true"^^xsd:boolean; s4ener:hasPowerLimitDuration "PT60M"^^xsd:duration ; '
+        - ' s4ener:hasPowerLimitConsumptionMax ?max_consumption .'
+        - '  ?max_consumption rdf:type saref:PropertyValue ; saref:hasValue ?value ; saref:isMeasuredIn om:megawatt .'
+       
+#  TODO:ACK – delivered baseline 
