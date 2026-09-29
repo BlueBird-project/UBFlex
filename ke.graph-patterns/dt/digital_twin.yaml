@@ -25,8 +25,8 @@ knowledge_engine:
         om: "http://www.ontology-of-units-of-measure.org/resource/om-2/"
       pattern:
         - ' ?command_uri  saref:hasOutput ?ts_uri; rdf:type saref:CommandOfInterest .'
-        - ' ?command_uri  rdf:type saref:CommandOfInterest; saref:observes ?market_uri .'
-        - ' ?ts_uri rdf:type ubmarket:Forecast .'
+        - ' ?command_uri  rdf:type saref:CommandOfInterest; saref:observes ?market_uri .' 
+        - ' ?ts_uri rdf:type ubmarket:Forecast ; s4ener:producedBy ?dt_uri .' 
         - ' ?ts_uri s4ener:hasUpdateRate  ?update_rate.'
         - ' ?ts_uri s4ener:hasCreationTime ?time_create .'
         - ' ?ts_uri s4ener:hasEffectivePeriod  ?ts_interval_uri .'
@@ -40,9 +40,7 @@ knowledge_engine:
         saref: "https://saref.etsi.org/core/"
       required_bindings:
         - "ts_uri"
-      pattern:
-        - ' ?ts_uri rdf:type ubmarket:Forecast .'
-        - ' ?dp s4ener:belongsToTimeSeries ?ts_uri ; rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ;'
-        - '   s4ener:hasEffectivePeriod ?duration_uri ; saref:hasResult ?dpr .'
-        - ' ?duration_uri  rdf:type  time:Interval; time:hasXSDDuration ?duration .'
+      pattern: 
+        - ' ?ts_uri rdf:type ubmarket:Forecast ; s4ener:producedBy ?dt_uri .'
+        - ' ?dp s4ener:belongsToTimeSeries ?ts_uri ; rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ; saref:hasResult ?dpr .' 
         - ' ?dpr    saref:hasValue ?value ; saref:isMeasuredIn ubmarket:EURPerMegawattHour .'

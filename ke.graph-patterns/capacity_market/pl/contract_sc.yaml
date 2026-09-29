@@ -2,6 +2,8 @@ knowledge_engine:
   knowledge_base_id: 'https://capacity-market.pcss.pl/ke/smartconnector'
   kb_name: 'Capacity market'
   kb_description: 'Capacity market'
+  prefixes:
+    kb: "${KB_ID}/"
   graph_patterns:
     baseline:
       name: "baseline-flexibility"
@@ -11,7 +13,7 @@ knowledge_engine:
         saref: "https://saref.etsi.org/core/"
         om: "http://www.ontology-of-units-of-measure.org/resource/om-2/"  
       pattern:
-        - ' ?ts_uri rdf:type s4ener:TimeSeries ;  s4ener:producedBy  <http://fm.bluebird.com/> . '
+        - ' ?ts_uri rdf:type s4ener:TimeSeries ;  s4ener:hasUsage s4ener:BaseLine . '
         - ' ?dp s4ener:belongsToTimeSeries ?ts_uri ; rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ;'
         - '  rdf:type  ubmarket:update_rate_15min ; saref:hasResult ?dpr.' 
         - ' ?dpr saref:hasValue ?value ; saref:isMeasuredIn om:megawatt .'
@@ -23,9 +25,9 @@ knowledge_engine:
         saref: "https://saref.etsi.org/core/"
         om: "http://www.ontology-of-units-of-measure.org/resource/om-2/"  
       pattern:
-        - ' ?flex_request rdf:type s4ener:FlexRequest ; s4ener:producedBy  ?market_uri ; s4ener:includes  ?ts_uri .'
-        - ' ?ts_uri rdf:type s4ener:TimeSeries  . '
-        - ' ?dp s4ener:belongsToTimeSeries ?ts_uri ; rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ;'
+        - ' ?flex_request rdf:type s4ener:FlexRequest ; s4ener:producedBy kb:market ; s4ener:includes  ?ts_uri .'
+        - ' ?baseline_uri rdf:type s4ener:TimeSeries  . '
+        - ' ?dp s4ener:belongsToTimeSeries ?baseline_uri ; rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ;'
         - ' rdf:type  ubmarket:update_rate_60min ; saref:hasResult ?dpr.' 
         - ' ?dpr saref:hasValue ?value ; saref:isMeasuredIn om:megawatt .'     
     contract:
@@ -37,8 +39,8 @@ knowledge_engine:
         om: "http://www.ontology-of-units-of-measure.org/resource/om-2/"
       pattern:
         - ' ?flex_offer rdf:type s4ener:FlexOffer; s4ener:producedBy ?flex_participant ; s4ener:FlexOffer ?flex_request . ' 
-        - ' ?flex_request  s4ener:producedBy  ?market_uri .'
-        - ' ?market_uri ubmarket:hasMarketType ubmarket:CapacityMarket ' 
+        - ' ?flex_request  s4ener:producedBy  kb:market .'
+        - ' kb:market ubmarket:hasMarketType ubmarket:CapacityMarket ' 
         - ' ?flex_offer s4ener:includes ?flex_dp ; s4ener:includes ?cost_dp ;  '
         - ' ?flex_dp rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ; s4ener:hasEffectivePeriod ?duration ; saref:hasResult ?flex_dpr .' 
         - ' ?cost_dp rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ; s4ener:hasEffectivePeriod ?duration ; saref:hasResult ?cost_dpr .' 
@@ -53,11 +55,23 @@ knowledge_engine:
         om: "http://www.ontology-of-units-of-measure.org/resource/om-2/"
       pattern:
         - ' ?flex_offer rdf:type s4ener:FlexOffer ; s4ener:producedBy kb:service ; s4ener:FlexOffer ?flex_request . ' 
-        - ' ?flex_request  s4ener:producedBy  ?market_uri .'
-        - ' ?market_uri ubmarket:hasMarketType ubmarket:CapacityMarket ' 
+        - ' ?flex_request  s4ener:producedBy  kb:market .'
+        - ' kb:market ubmarket:hasMarketType ubmarket:CapacityMarket ' 
         - ' ?flex_offer s4ener:includes ?flex_dp ; s4ener:includes ?cost_dp ;  '
         - ' ?flex_dp rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ; s4ener:hasEffectivePeriod ?duration ; saref:hasResult ?flex_dpr .' 
         - ' ?cost_dp rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ; s4ener:hasEffectivePeriod ?duration ; saref:hasResult ?cost_dpr .' 
         - ' ?flex_dpr saref:hasValue ?flex_value ; saref:isMeasuredIn om:megawatt .'
         - ' ?cost_dpr saref:hasValue ?cost_value ; saref:isMeasuredIn ubmarket:PLNPerKilowatt .'
-     
+    capacity-market-price:
+      name: "capacity-market-price"
+      description: "Price information" 
+      prefixes:
+        xsd: "http://www.w3.org/2001/XMLSchema#"
+      pattern:
+        - " kb:market rdf:type ubmarket:Market ; ubmarket:hasMarketType ubmarket:CapacityMarket  ."  
+        - " ?offer_uri rdf:type ubmarket:MarketTimeSeries ." 
+        - " ?offer_uri s4ener:producedBy kb:market ."    
+        - " ?dp s4ener:belongsToTimeSeries ?offer_uri ; rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ;"
+        - "   s4ener:hasEffectivePeriod ?duration_uri ; saref:hasResult ?dpr."
+        - " ?duration_uri  rdf:type  time:Interval; time:hasXSDDuration ?duration ."
+        - " ?dpr saref:hasValue ?value ; saref:isMeasuredIn ubmarket:PLNPerKilowatt  ."
