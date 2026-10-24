@@ -9,6 +9,19 @@ knowledge_engine:
     - "../../fm/flexibility_manager.yaml"
     - "./contract.yaml"
   graph_patterns: 
+    baseline-request:
+      name: "baseline"
+      description: "get required dates . POST/REACT"
+      prefixes:
+        xsd: "http://www.w3.org/2001/XMLSchema#"
+        saref: "https://saref.etsi.org/core/"
+        om: "http://www.ontology-of-units-of-measure.org/resource/om-2/"
+      pattern:
+        - ' ?ts_uri rdf:type s4ener:TimeSeries ;  s4ener:producedBy  kb:marketł ; ' 
+        - ' rdf:type  ubmarket:update_rate_60min ; s4ener:hasUsage s4ener:BaseLine .'  
+        - ' ?baseline_interval_uri rdf:type time:Interval; time:hasBeginning ?ts_baseline_from; time:hasEnd ?ts_baseline_to .'
+      result_pattern:
+        - " ?day_interval_uri rdf:type time:Interval; time:hasBeginning ?ts_day_from; time:hasEnd ?ts_day_to ." 
     flex-request:
       name: "flex-request"
       description: " request for flexibility . POST/ASK"
