@@ -1,20 +1,20 @@
-knowledge_engine:
-  knowledge_base_id: 'https://capacity-market.pcss.pl/ke/smartconnector'
-  kb_name: 'Capacity market'
-  kb_description: 'Capacity market'
-  graph_patterns: 
-    baseline-flexibility:
-      name: "baseline-flexibility"
-      description: "Get flexibility for given baseline with runnning costs . POST/REACT"
-      prefixes:
-        xsd: "http://www.w3.org/2001/XMLSchema#"
-        saref: "https://saref.etsi.org/core/"
-        om: "http://www.ontology-of-units-of-measure.org/resource/om-2/" 
-      pattern:
-        - ' ?flex_instruction rdf:type s4ener:FlexibilityInstruction ; s4ener:hasCost ?cost_dp ; s4ener:relatesToOffer ?power_offer .'
-        - ' ?cost_dp rdf:type s4ener:DataPoint ;saref:hasTimestamp ?offer_ts ;  saref:hasResult ?cost_dpr .'
-        - ' ?cost_dpr saref:hasValue ?cost_value ; saref:isMeasuredIn ubmarket:PLNPerKilowatt .'
-        - ' ?power_offer  rdf:type s4ener:FlexOffer; s4ener:includes ?offer_dp . '
-        - ' ?offer_dp rdf:type s4ener:DataPoint ; saref:hasTimestamp ?offer_ts ;  saref:hasResult ?offer_dpr .'
-        - ' ?offer_dpr saref:hasValue ?offer_value ; saref:isMeasuredIn om:megawatt .'
+# knowledge_engine:
+#   knowledge_base_id: 'https://capacity-market.pcss.pl/ke/smartconnector'
+#   kb_name: 'Capacity market'
+#   kb_description: 'Capacity market'
+#   graph_patterns: 
+#     baseline-flexibility:
+#       name: "baseline-flexibility"
+#       description: "Get flexibility for given baseline with runnning costs . POST/REACT"
+#       prefixes:
+#         xsd: "http://www.w3.org/2001/XMLSchema#"
+#         saref: "https://saref.etsi.org/core/"
+#         om: "http://www.ontology-of-units-of-measure.org/resource/om-2/" 
+#       pattern:
+#         - ' ?flex_instruction rdf:type s4ener:FlexibilityInstruction ; s4ener:hasCost ?cost_dp ; s4ener:relatesToOffer ?power_offer .'
+#         - ' ?cost_dp rdf:type s4ener:DataPoint ;saref:hasTimestamp ?offer_ts ;  saref:hasResult ?cost_dpr .'
+#         - ' ?cost_dpr saref:hasValue ?cost_value ; saref:isMeasuredIn ubmarket:PLNPerKilowatt .'
+#         - ' ?power_offer  rdf:type s4ener:FlexOffer; s4ener:includes ?offer_dp . '
+#         - ' ?offer_dp rdf:type s4ener:DataPoint ; saref:hasTimestamp ?offer_ts ;  saref:hasResult ?offer_dpr .'
+#         - ' ?offer_dpr saref:hasValue ?offer_value ; saref:isMeasuredIn om:megawatt .'  
     
