@@ -1,0 +1,22 @@
+# knowledge_engine:
+#   knowledge_base_id: ''
+#   kb_name: ''
+#   kb_description: ''
+#   graph_patterns: 
+#     contract:
+#       name: "contract"
+#       description: "Exchange datapoints."
+#       prefixes:
+#         xsd: "http://www.w3.org/2001/XMLSchema#"
+#         saref: "https://saref.etsi.org/core/"
+#         om: "http://www.ontology-of-units-of-measure.org/resource/om-2/"
+#       pattern:
+#         - ' ?flex_offer rdf:type s4ener:FlexOffer ; s4ener:FlexOffer ?flex_request . ' 
+#         - ' ?flex_request  s4ener:producedBy  ?market_uri .'
+#         - ' ?market_uri ubmarket:hasMarketType ubmarket:CapacityMarket ' 
+#         - ' ?flex_offer s4ener:includes ?flex_dp ; s4ener:includes ?cost_dp ;  '
+#         - ' ?flex_dp rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ; s4ener:hasEffectivePeriod ?duration ; saref:hasResult ?flex_dpr .' 
+#         - ' ?cost_dp rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ; s4ener:hasEffectivePeriod ?duration ; saref:hasResult ?cost_dpr .' 
+#         - ' ?flex_dpr saref:hasValue ?flex_value ; saref:isMeasuredIn om:megawatt .'
+#         - ' ?cost_dpr saref:hasValue ?cost_value ; saref:isMeasuredIn ubmarket:PLNPerKilowatt .'
+     

@@ -27,7 +27,13 @@ ubmarket:get_data_command
     a               owl:NamedIndividual ;
     rdfs:label      "get_data_command"@en .
 
+ubmarket:ack_event 
+    rdf:type s4mari:Event ;
+    saref:hasFeatureKind s4mari:Acknowledgement .
+
  
+ 
+       
 # ============================================================
 # Energy market units
 # ============================================================
