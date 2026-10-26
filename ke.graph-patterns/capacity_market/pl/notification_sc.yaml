@@ -4,10 +4,10 @@ knowledge_engine:
   kb_description: "Capacity market"
   prefixes:
     rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    s4city: "https://saref.etsi.org/s4city"
-    s4ener: "https://saref.etsi.org/s4ener"
+    s4city: "https://saref.etsi.org/s4city/"
+    s4ener: "https://saref.etsi.org/saref4ener/"
     foaf: "http://xmlns.com/foaf/0.1/"
-    ubmarket: "https://ubeflex.bluebird.eu/market"
+    ubmarket: "https://ubflex.bluebird.eu/market/"
     rdfs: "http://www.w3.org/2000/01/rdf-schema#"
     saref: "https://saref.etsi.org/core/"
     time: "http://www.w3.org/2006/time#"
@@ -45,4 +45,3 @@ knowledge_engine:
         - " ?ts_uri rdf:type s4ener:TimeSeries ; rdf:type ubmarket:update_rate_60min ; s4ener:hasUsage s4ener:Consumption; "
         - " s4ener:producedBy  <http://fm.bluebird.com/> ; "
         - " s4ener:hasCreationTime ?time_create ; s4ener:hasEffectivePeriod ?ts_interval_uri ."
-#  TODO:ACK – delivered baseline

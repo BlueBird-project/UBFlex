@@ -16,6 +16,7 @@ knowledge_engine:
     - "../fm/flexibility_manager.yaml"
     - "../dt/digital_twin.yaml"
     - "./trading_manager.yaml"
+    - "../capacity_market/pl/notification_sc.yaml"
     # - "./tou.yaml"
   graph_patterns:
     tou-price:
@@ -38,10 +39,7 @@ knowledge_engine:
       prefixes:
         xsd: "http://www.w3.org/2001/XMLSchema#"
         saref: "https://saref.etsi.org/core/"
-        om: "http://www.ontology-of-units-of-measure.org/resource/om-2/"
-#      required_bindings:
-#        - "time_create"
-#        - "tou_period"
+        om: "http://www.ontology-of-units-of-measure.org/resource/om-2/" 
       pattern:
         - ' ?tou_uri rdf:type ?ts_type .'
         - ' ?tou_uri s4ener:producedBy kb:service  .'
