@@ -257,82 +257,81 @@ ubmarket:hasCost
 # ============================================================
 # Time filters
 # ============================================================
-
-ubmarket:TimeFilter
-    a            owl:Class ;
-    rdfs:comment "A filter specifying which time intervals are considered by a calculation method."@en ;
-    rdfs:label   "Time Filter"@en .
-
-
-ubmarket:Peak
-    a               owl:Class ;
-    rdfs:subClassOf ubmarket:TimeFilter ;
-    rdfs:comment    "Peak hours."@en ;
-    rdfs:label      "Peak"@en .
-
-
-ubmarket:OffPeak
-    a               owl:Class ;
-    rdfs:subClassOf ubmarket:TimeFilter ;
-    rdfs:comment    "Off-peak hours."@en ;
-    rdfs:label      "Off-Peak"@en .
-
-
-ubmarket:SameTime
-    a               owl:Class ;
-    rdfs:subClassOf ubmarket:TimeFilter ;
-    rdfs:comment    "The same time interval as the flexibility demand."@en ;
-    rdfs:label      "Same Time"@en .
-
-
-ubmarket:hasTimeFilter
-    a           owl:ObjectProperty ;
-    rdfs:domain ubmarket:CalculationMethod ;
-    rdfs:range  ubmarket:TimeFilter ;
-    rdfs:label  "has time filter"@en .
+#
+#ubmarket:TimeFilter
+#    a            owl:Class ;
+#    rdfs:comment "A filter specifying which time intervals are considered by a calculation method."@en ;
+#    rdfs:label   "Time Filter"@en .
+#
+#
+#ubmarket:Peak
+#    a               owl:Class ;
+#    rdfs:subClassOf ubmarket:TimeFilter ;
+#    rdfs:comment    "Peak hours."@en ;
+#    rdfs:label      "Peak"@en .
+#
+#
+#ubmarket:OffPeak
+#    a               owl:Class ;
+#    rdfs:subClassOf ubmarket:TimeFilter ;
+#    rdfs:comment    "Off-peak hours."@en ;
+#    rdfs:label      "Off-Peak"@en .
+#
+#
+#ubmarket:SameTime
+#    a               owl:Class ;
+#    rdfs:subClassOf ubmarket:TimeFilter ;
+#    rdfs:comment    "The same time interval as the flexibility demand."@en ;
+#    rdfs:label      "Same Time"@en .
+#
+#
+#ubmarket:hasTimeFilter
+#    a           owl:ObjectProperty ;
+#    rdfs:domain ubmarket:CalculationMethod ;
+#    rdfs:range  ubmarket:TimeFilter ;
+#    rdfs:label  "has time filter"@en .
 
 
 # ============================================================
 # Aggregation
 # ============================================================
 
-ubmarket:AggregationFunction
-    a          owl:Class ;
-    rdfs:comment
-               "A function used to aggregate power values when calculating a baseline, such as the mean or maximum."@en ;
-    rdfs:label "Aggregation Function"@en .
+#ubmarket:AggregationFunction
+#    a          owl:Class ;
+#    rdfs:comment
+#               "A function used to aggregate power values when calculating a baseline, such as the mean or maximum."@en ;
+#    rdfs:label "Aggregation Function"@en .
+#
+#
+#ubmarket:hasAggregationFunction
+#    a           owl:ObjectProperty ;
+#    rdfs:domain ubmarket:CalculationMethod ;
+#    rdfs:range  ubmarket:AggregationFunction ;
+#    rdfs:label  "has aggregation function"@en .
+#
+#
+#ubmarket:Mean
+#    a          owl:NamedIndividual ;
+#    a          ubmarket:AggregationFunction ;
+#    rdfs:label "Mean"@en .
+#
+#
+#ubmarket:Max
+#    a          owl:NamedIndividual ;
+#    a          ubmarket:AggregationFunction ;
+#    rdfs:label "Maximum"@en .
+#
+#
+## ============================================================
+## Power range
+## ============================================================
+#
+#ubmarket:hasPowerRange
+#    a            owl:ObjectProperty ;
+#    rdfs:domain  [ a           owl:Class ;
+#                   owl:unionOf ( ubmarket:FlexContractOffer ubmarket:MarketTimeSeries ubmarket:FlexContractRequest ) ] ;
+#    rdfs:range   s4ener:PowerRange ;
+#    rdfs:label   "has power range"@en ;
+#    rdfs:comment "Associates a flexibility contract or market time series with a power range."@en .
 
 
-ubmarket:hasAggregationFunction
-    a           owl:ObjectProperty ;
-    rdfs:domain ubmarket:CalculationMethod ;
-    rdfs:range  ubmarket:AggregationFunction ;
-    rdfs:label  "has aggregation function"@en .
-
-
-ubmarket:Mean
-    a          owl:NamedIndividual ;
-    a          ubmarket:AggregationFunction ;
-    rdfs:label "Mean"@en .
-
-
-ubmarket:Max
-    a          owl:NamedIndividual ;
-    a          ubmarket:AggregationFunction ;
-    rdfs:label "Maximum"@en .
-
-
-# ============================================================
-# Power range
-# ============================================================
-
-ubmarket:hasPowerRange
-    a            owl:ObjectProperty ;
-    rdfs:domain  [ a           owl:Class ;
-                   owl:unionOf ( ubmarket:FlexContractOffer ubmarket:MarketTimeSeries ubmarket:FlexContractRequest ) ] ;
-    rdfs:range   s4ener:PowerRange ;
-    rdfs:label   "has power range"@en ;
-    rdfs:comment "Associates a flexibility contract or market time series with a power range."@en .
-
-
- 
