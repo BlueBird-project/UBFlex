@@ -3,7 +3,7 @@ knowledge_engine:
   kb_name: "Capacity market"
   kb_description: "Capacity market"
   prefixes:
-    s4mari: https://saref.etsi.org/s4mari/ .
+    s4mari: https://saref.etsi.org/s4mari/
     kb: "${KB_ID}/"
   include:
     - "../../fm/flexibility_manager.yaml"
@@ -89,8 +89,8 @@ knowledge_engine:
         - "  kb:market ubmarket:hasMarketType ubmarket:CapacityMarket ."
         - "  ?asset_manager rdf:type foaf:Agent."
         - " ?flex_request s4ener:includes ?flex_dp ; s4ener:includes ?cost_dp . "
-        - " ?flex_dp rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ; s4ener:hasEffectivePeriod ?period_uri ; saref:hasResult ?flex_dpr ."
-        - " ?cost_dp rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ; s4ener:hasEffectivePeriod ?period_uri ; saref:hasResult ?cost_dpr ."
+        - " ?flex_dp rdf:type s4ener:DataPoint ;   s4ener:hasEffectivePeriod ?period_uri ; saref:hasResult ?flex_dpr ."
+        - " ?cost_dp rdf:type s4ener:DataPoint ;   s4ener:hasEffectivePeriod ?period_uri ; saref:hasResult ?cost_dpr ."
         - " ?flex_dpr saref:hasValue ?flex_value ; saref:isMeasuredIn om:megawatt ."
         - " ?cost_dpr saref:hasValue ?cost_value ; saref:isMeasuredIn ubmarket:PLNPerKilowatt ."
         - " ?period_uri  rdf:type time:Interval; time:hasBeginning ?ts_date_from; time:hasEnd ?ts_date_to . "
