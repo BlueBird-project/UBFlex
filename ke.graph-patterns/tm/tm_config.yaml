@@ -16,7 +16,7 @@ knowledge_engine:
     - "../fm/flexibility_manager.yaml"
     - "../dt/digital_twin.yaml"
     - "./trading_manager.yaml"
-    - "../capacity_market/pl/notification_sc.yaml"
+    - "../capacity_market/pl/notification.yaml"
     # - "./tou.yaml"
   graph_patterns:
     tou-price:

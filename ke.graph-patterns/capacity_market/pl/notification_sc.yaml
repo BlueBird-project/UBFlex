@@ -16,20 +16,8 @@ knowledge_engine:
   include:
     - "../../fm/flexibility_manager.yaml"
     - "./contract.yaml"
-  graph_patterns:
-    flex-demand:
-      name: "flex-demand"
-      description: "Market details - POST"
-      prefixes:  
-        om: "http://www.ontology-of-units-of-measure.org/resource/om-2/"
-      pattern:
-        - "?asset_manager rdf:type foaf:Agent ."
-        - " ?flex_instruction rdf:type s4ener:PPBCInstruction ; s4ener:hasExecutionTime ?ts ; s4ener:relatesToOffer ?flex_offer   . "
-        - " ?flex_offer  s4ener:hasRecipient ?asset_manager ; s4ener:includes ?flex_profile . "
-        - " ?flex_profile rdf:type s4ener:PowerLimitProfile  ; s4ener:receivesPowerLimit ?power_limit   ."
-        - '  ?power_limit rdf:type s4ener:ContractualPowerLimit ;  s4ener:isObligatory "true"^^xsd:boolean; s4ener:hasPowerLimitDuration "PT60M"^^xsd:duration ; '
-        - " s4ener:hasContractualConsumptionMax  ?max_consumption ."
-        - "  ?max_consumption rdf:type saref:PropertyValue ; saref:hasValue ?max_consumption_value ; saref:isMeasuredIn om:megawatt ."
+    - "./notification.yaml"
+  graph_patterns: 
     fm-ts-info-request:
       name: "fm-ts-info-request"
       description:
@@ -45,3 +33,4 @@ knowledge_engine:
         - " ?ts_uri rdf:type s4ener:TimeSeries ; rdf:type ubmarket:update_rate_60min ; s4ener:hasUsage s4ener:Consumption; "
         - " s4ener:producedBy  <http://fm.bluebird.com/> ; "
         - " s4ener:hasCreationTime ?time_create ; s4ener:hasEffectivePeriod ?ts_interval_uri ."
+   
