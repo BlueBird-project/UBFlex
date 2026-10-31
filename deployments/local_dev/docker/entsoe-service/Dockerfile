@@ -6,7 +6,7 @@ FROM ${REGISTRY_DOMAIN}/${REGISTRY_PROJECT}/tm-entsoe-service:$IMAGE_TAG
 
 COPY ./docker/entsoe-service/entsoe.yaml /app/resources/deployment/entsoe.yaml
 
-ENV KE_KI_CONFIG_PATH="/app/resources/deployment/ke_config.yaml"
+ENV KE_KI_CONFIG_PATH="/app/resources/graph-patterns/entso-e/entso-e-config.yaml"
 ENV DB_INIT_SCRIPT_LOCATION="/app/resources/deployment/db/pg_init.sql"
 ENV APP_LOGGING_CONF_PATH="/app/resources/deployment/logging.ini"
 ENV SERVICE_LOG_DIR=/var/log/

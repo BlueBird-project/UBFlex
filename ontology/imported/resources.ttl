@@ -6,6 +6,7 @@
 @prefix ubmarket: <https://ubflex.bluebird.eu/market/> .
 @prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
 @prefix s4ener:   <https://saref.etsi.org/saref4ener/> .
+@prefix s4mari:   <https://saref.etsi.org/s4mari/> .
 @prefix om: <http://www.ontology-of-units-of-measure.org/resource/om-2/> .
 
 <http://fm.bluebird.com/>
