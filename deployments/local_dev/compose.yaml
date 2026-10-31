@@ -17,7 +17,8 @@ services:
       - KE_REST_ENDPOINT=http://tm-ke-service:8280/rest/
     restart: on-failure:5
     volumes:
-      - ./docker/trading-manager/app_config.yaml:/config/app_config.yaml
+      # - ./docker/trading-manager/app_config.yaml:/config/app_config.yaml
+      - ./docker/trading-manager/app_config.yaml:/config/config.yaml
     networks:
       - tm-net
 

@@ -5,6 +5,9 @@ service:
   name: "local-service"
 app:
   logging_conf_path: "./resources/logging.ini"
+  use_scheduler: true
+  use_rest_api: true
+  use_ke_api: true
   country_list:
     - "Poland"
     - "Spain"
@@ -12,13 +15,20 @@ app:
     - "Belgium"
     - "Austria"
 db:
+  db_port: 5432
+  db_host: "postgres"
+  db_user: "postgres"
+  db_name: "postgres"
   db_log_query: false
   db_log_error_query: true
   db_max_rows: 65000
-  db_init: true
+  db_init: true 
+  #  db_init_script_location: "path/to/script.sql"
+  db_table_prefix: "local_tm_"
+  db_schema_name: "public" 
 ke:
   allow_partial_ki: true
-  ki_config_path: ./resources/deployment/ke_config.yaml
+  ki_config_path: "/app/resources/graph-patterns/tm/tm_config.yaml"
   ki_vars:
     DAY_DURATION: '"PT1440M"^^xsd:duration'
     ISP_UNIT: '"PT15M"^^xsd:duration'
@@ -26,4 +36,4 @@ ke:
     ENERGY_COST_UNIT: "EURPerMegawattHour"
   extension_ontology_files:
     - "/app/resources/ontologies/bluebird.ttl"
-    - "/app/resources/ontologies/resources.ttl"
+    - "/app/resources/ontologies/resources.ttl"  
