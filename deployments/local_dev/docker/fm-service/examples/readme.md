@@ -1,3 +1,7 @@
+## Graph patterns
+
+Graph patterns and UBFlex ontology is defined [here](https://github.com/BlueBird-project/UBFlex/tree/main/ke.graph-patterns)
+
 ## Flexibility Manager
 
 ### Run
@@ -9,12 +13,12 @@ load env files :
 
 sample client: `./examples/fm_ki.py ` (working directory - project/repository root directory)
 
-ANSWER and REACT can be tested by sending requests from Trading Manager REST API:
+ANSWER and REACT knowledge interaction can be triggered from Trading Manager REST API (KI section):
 
 ``` 
-http://{TM_HOST}:{TM_PORT}/api (swagger)
-
-http://localhost:9090/api
+http://{TM_HOST}:{TM_PORT}/api#/KI (swagger)
+For example:
+http://localhost:9090/api#/KI
 ```
 
 ## Digital Twin
@@ -28,11 +32,10 @@ load env files :
 
 sample client: `./examples/tm_ki.py ` (working directory - project/repository root directory)
 
-ANSWER and REACT can be tested by sending requests from Trading Manager REST API:
+ANSWER and REACT knowledge interaction can be triggered from Trading Manager REST API (KI section):
 
 ``` 
-http://{TM_HOST}:{TM_PORT}/api (swagger)
-
-http://localhost:9090/api
+http://{TM_HOST}:{TM_PORT}/api#/KI (swagger)
+For example:
+http://localhost:9090/api#/KI
 ```
-
