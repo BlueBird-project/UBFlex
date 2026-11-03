@@ -13,7 +13,7 @@ List of ENTSO-E market/region codes is [here](https://transparencyplatform.zende
 Configuration:
 1. Obtain API Token (ENTSOE_TOKEN) ( [acquire token](https://www.amsleser.no/blog/post/21-obtaining-api-token-from-entso-e) ) 
 2. Set API Token in [./env/.env.secrets](./env/.env.secrets)
-3. Configure markets [./docker/entsoe-service/entsoe.yaml](./docker/entsoe-service/entsoe.yaml)
+3. Configure markets [./docker/entsoe-service/entsoe.yaml](./docker/entsoe-service/entsoe.yaml) ([market codes](https://transparencyplatform.zendesk.com/hc/en-us/articles/15885757676308-Area-List-with-Energy-Identification-Code-EIC))
 
 
 #### Additional information
@@ -29,6 +29,17 @@ Service documentation is [here](https://github.com/BlueBird-project/trading-mana
 Sample TM configuration with subscribed country markets ( `'app.country_list'`) can be found [here (configuration loaded in compose.yaml)](./docker/trading-manager/app_config.yaml)
 and  [here](./docker/trading-manager/config.yaml)
 
+Set subcribed countries:
+```yaml
+
+  country_list:
+    - "Poland"
+    - "Spain"
+    - "Germany"
+    - "Belgium"
+    - "Austria"
+
+```
 ### Sample FM Service
 
 This service provides sample Flexibility Manager Smart Client implementation with sample interactions fed with random data.
@@ -44,7 +55,7 @@ Docker configuration is [here](./docker/dt-service/Dockerfile) and FM service so
 
 ### PGAdmin (DB web gui)
 
-By default PGAdmin is exposed to: http://localhost:9199/
+By default PGAdmin (database UI) is exposed to: http://localhost:9199/
 
 Login settings:
 
@@ -82,7 +93,7 @@ docker-compose -p local -f compose.yaml --env-file .env build
 docker-compose -p local -f sample_compose.yaml --env-file .env build
 
 #samples + tge
-docker-compose -p local -f all_compose.yaml --env-file .env --env-file ./env/.env.secrets  build
+docker-compose -p local -f compose.all.yaml --env-file .env --env-file ./env/.env.secrets  build
 
 ```
 
@@ -97,8 +108,8 @@ docker-compose -p local -f sample_compose.yaml --env-file .env create
 docker-compose -p local -f sample_compose.yaml --env-file .env start
 
 #samples + tge service
-docker-compose -p local -f all_compose.yaml --env-file .env --env-file ./env/.env.secrets  create
-docker-compose -p local -f all_compose.yaml --env-file .env --env-file ./env/.env.secrets  start 
+docker-compose -p local -f compose.all.yaml --env-file .env --env-file ./env/.env.secrets  create
+docker-compose -p local -f compose.all.yaml --env-file .env --env-file ./env/.env.secrets  start 
 ```
 
 check consumed resources:
@@ -113,9 +124,7 @@ check consumed resources:
 
 #download images from:
 https://box.pionier.net.pl/d/7603fc382fa74e89a490/
-
-#old link
-https://box.pionier.net.pl/d/2782022c45ce4360a8c5/
+ 
 
 ```
  
@@ -141,14 +150,15 @@ docker load -i .\images\bluebird.tge-dayahead-service_latest.ta
 
 docker save -o "./images/trading-manager.$Env:TM_TAG.tar" "$Env:REGISTRY_DOMAIN/$Env:REGISTRY_PROJECT/trading-manager:$Env:TM_TAG"
 docker save -o "./images/trading-manager.latest.tar" "$Env:REGISTRY_DOMAIN/$Env:REGISTRY_PROJECT/trading-manager:$Env:TM_TAG" "$Env:REGISTRY_DOMAIN/$Env:REGISTRY_PROJECT/trading-manager:latest"
-
 docker save -o "./images/local-entsoe-service.latest.tar" "$Env:REGISTRY_DOMAIN/$Env:REGISTRY_PROJECT/local-entsoe-service:latest" 
-docker save -o "./images/local-dt-service.tar"  "$Env:REGISTRY_DOMAIN/$Env:REGISTRY_PROJECT/local-dt-service:latest" 
-docker save -o "./images/local-fm-service.tar"  "$Env:REGISTRY_DOMAIN/$Env:REGISTRY_PROJECT/local-fm-service:latest" 
+
 
 docker save -o "./images/base-entsoe-service.$Env:ENTSO_E_TAG.tar" "$Env:REGISTRY_DOMAIN/$Env:REGISTRY_PROJECT/tm-entsoe-service:$Env:ENTSO_E_TAG" "$Env:REGISTRY_DOMAIN/$Env:REGISTRY_PROJECT/tm-entsoe-service:latest" 
 docker save -o "./images/base-entsoe-service.latest.tar" "$Env:REGISTRY_DOMAIN/$Env:REGISTRY_PROJECT/tm-entsoe-service:latest" 
 
+
+docker save -o "./images/local-dt-service.tar"  "$Env:REGISTRY_DOMAIN/$Env:REGISTRY_PROJECT/local-dt-service:latest" 
+docker save -o "./images/local-fm-service.tar"  "$Env:REGISTRY_DOMAIN/$Env:REGISTRY_PROJECT/local-fm-service:latest" 
 ```
 
 ## Manage sample Digital Twin and Flexibility Manager Smart Client dockers

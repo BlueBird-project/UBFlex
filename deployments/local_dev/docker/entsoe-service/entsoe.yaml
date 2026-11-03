@@ -4,8 +4,11 @@ entsoe_api:
       market_types:
         day_ahead:
           - sequence: None
+            # time when the new offer is expected
             publish: "13:00"
+            #number of points: 24 hours offer , 15 minute granularity -> 96 points
             offer_length: 96
+            # log error after: 2 hours
             max_delay: PT2H
     - code: 10Y1001A1001A82H
       market_types:
