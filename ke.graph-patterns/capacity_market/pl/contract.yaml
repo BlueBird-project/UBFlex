@@ -5,29 +5,31 @@ knowledge_engine:
   prefixes:
     s4mari: https://saref.etsi.org/s4mari/
     kb: "${KB_ID}/"
+    saref: "https://saref.etsi.org/core/"
+    xsd: "http://www.w3.org/2001/XMLSchema#"
   include:
     - "../../fm/flexibility_manager.yaml"
   graph_patterns:
     baseline-request:
-      name: "baseline"
-      description: "get required dates . POST/REACT"
-      prefixes:
-        xsd: "http://www.w3.org/2001/XMLSchema#"
-        saref: "https://saref.etsi.org/core/"
-        om: "http://www.ontology-of-units-of-measure.org/resource/om-2/"
+      name: "baseline-request"
+      description: "Get baseline requirement - minimum time span to calculate reference profile . POST/REACT"
+      prefixes: 
+      required_bindings:
+        - "ts_uri"
+        - "ts_baseline_to"
+        - "ts_baseline_from" 
       pattern:
-        - " ?ts_uri rdf:type s4ener:TimeSeries ;  s4ener:producedBy  ?market ; "
-        - " rdf:type  ubmarket:update_rate_60min ; s4ener:hasUsage s4ener:BaseLine ."
+        - " ?baseline_ts_uri rdf:type s4ener:TimeSeries ; s4ener:producedBy  ?market ; s4ener:hasUsage s4ener:BaseLine ; "
+        - " rdf:type  ubmarket:update_rate_60min ;  s4ener:hasEffectivePeriod  ?baseline_interval_uri ."
+        - " ?ts_uri rdf:type s4ener:TimeSeries ; s4ener:producedBy  ?asset_manager ;  rdf:type  ubmarket:update_rate_60min ."
         - " ?baseline_interval_uri rdf:type time:Interval; time:hasBeginning ?ts_baseline_from; time:hasEnd ?ts_baseline_to ."
       result_pattern:
+        - " ?ts_uri s4ener:hasEffectivePeriod  ?day_interval_uri . "
         - " ?day_interval_uri rdf:type time:Interval; time:hasBeginning ?ts_day_from; time:hasEnd ?ts_day_to ."
     baseline:
       name: "baseline"
       description: "Calc baseline . POST/REACT"
       prefixes:
-        xsd: "http://www.w3.org/2001/XMLSchema#"
-        saref: "https://saref.etsi.org/core/"
-        om: "http://www.ontology-of-units-of-measure.org/resource/om-2/"
       pattern:
         - " ?ts_uri rdf:type s4ener:TimeSeries ;  s4ener:producedBy  <http://fm.bluebird.com/> . "
         - " ?dp s4ener:belongsToTimeSeries ?ts_uri ; rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ;"
