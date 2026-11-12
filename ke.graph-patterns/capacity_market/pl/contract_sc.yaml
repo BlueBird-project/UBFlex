@@ -11,108 +11,123 @@ knowledge_engine:
     - "../../fm/flexibility_manager.yaml"
     - "./contract.yaml"
   graph_patterns:
-    baseline-request:
-      name: "baseline-request"
-      description: "Get baseline requirement - minimum time span to calculate reference profile . POST/REACT"
+    fm-ts-info-request:
+      name: "fm-ts-info-request"
+      description:
+        "Exchange information about the saref:timeseries. Recommended saref usage :
+        s4ener:Consumption, s4ener:Downflex,   s4ener:Production,  s4ener:Upflex . Used in ANSWER,ASK . "
       prefixes:
+        xsd: "http://www.w3.org/2001/XMLSchema#"
+        time: "http://www.w3.org/2006/time#"
+        saref: "https://saref.etsi.org/core/"
       pattern:
-        - " ?baseline_ts_uri rdf:type s4ener:TimeSeries ; s4ener:producedBy  kb:market ; s4ener:hasUsage s4ener:BaseLine ; "
-        - " rdf:type  ubmarket:update_rate_60min ;  s4ener:hasEffectivePeriod  ?baseline_interval_uri ."
-        - " ?ts_uri rdf:type s4ener:TimeSeries ; s4ener:producedBy  ?asset_manager ;  rdf:type  ubmarket:update_rate_60min ."
-        - " ?baseline_interval_uri rdf:type time:Interval; time:hasBeginning ?ts_baseline_from; time:hasEnd ?ts_baseline_to ."
-      result_pattern:
-        - " ?ts_uri s4ener:hasEffectivePeriod  ?day_interval_uri . "
-        - " ?day_interval_uri rdf:type time:Interval; time:hasBeginning ?ts_day_from; time:hasEnd ?ts_day_to ."
-    flex-request:
-      name: "flex-request"
-      description: " request for flexibility . POST/ASK"
-      prefixes:
-        om: "http://www.ontology-of-units-of-measure.org/resource/om-2/"
-      pattern:
-        - " ?flex_request rdf:type s4ener:FlexOffer ;  s4ener:producedBy kb:market  ; s4ener:hasCreationTime  ?ts ."
-        - " kb:market rdf:type ubmarket:Market ; ubmarket:hasMarketType ubmarket:CapacityMarket . "
+        - " <http://fm.bluebird.com/>  rdf:type saref:Service . "
+        - " ?ts_interval_uri rdf:type time:Interval; time:hasBeginning ?ts_date_from; time:hasEnd ?ts_date_to ."
+        - " ?ts_uri rdf:type s4ener:TimeSeries ; rdf:type ubmarket:update_rate_60min ; s4ener:hasUsage s4ener:Consumption; "
+        - " s4ener:producedBy  <http://fm.bluebird.com/> ; "
+        - " s4ener:hasCreationTime ?time_create ; s4ener:hasEffectivePeriod ?ts_interval_uri ."
+    # baseline-request:
+    #   name: "baseline-request"
+    #   description: "Get baseline requirement - minimum time span to calculate reference profile . POST/REACT"
+    #   prefixes:
+    #   pattern:
+    #     - " ?baseline_ts_uri rdf:type s4ener:TimeSeries ; s4ener:producedBy  kb:market ; s4ener:hasUsage s4ener:BaseLine ; "
+    #     - " rdf:type  ubmarket:update_rate_60min ;  s4ener:hasEffectivePeriod  ?baseline_interval_uri ."
+    #     - " ?ts_uri rdf:type s4ener:TimeSeries ; s4ener:producedBy  ?asset_manager ;  rdf:type  ubmarket:update_rate_60min ."
+    #     - " ?baseline_interval_uri rdf:type time:Interval; time:hasBeginning ?ts_baseline_from; time:hasEnd ?ts_baseline_to ."
+    #   result_pattern:
+    #     - " ?ts_uri s4ener:hasEffectivePeriod  ?day_interval_uri . "
+    #     - " ?day_interval_uri rdf:type time:Interval; time:hasBeginning ?ts_day_from; time:hasEnd ?ts_day_to ."
+    # flex-request:
+    #   name: "flex-request"
+    #   description: " request for flexibility . POST/ASK"
+    #   prefixes:
+    #     om: "http://www.ontology-of-units-of-measure.org/resource/om-2/"
+    #   pattern:
+    #     - " ?flex_request rdf:type s4ener:FlexOffer ;  s4ener:producedBy kb:market  ; s4ener:hasCreationTime  ?ts ."
+    #     - " kb:market rdf:type ubmarket:Market ; ubmarket:hasMarketType ubmarket:CapacityMarket . "
 
-    flex-offer:
-      name: "flex-offer"
-      description: " share flex offer . POST/ASK"
-      prefixes:
-        xsd: "http://www.w3.org/2001/XMLSchema#"
-        saref: "https://saref.etsi.org/core/"
-        om: "http://www.ontology-of-units-of-measure.org/resource/om-2/"
-      pattern:
-        - " ?flex_request rdf:type s4ener:FlexOffer ;  s4ener:producedBy  kb:market ; s4ener:includes  ?dp ; "
-        - " s4ener:includes ?flex_profile ; s4ener:hasRecipient ?asset_manager ."
-        - " ?asset_manager rdf:type foaf:Agent . "
-        - " ?flex_profile rdf:type s4ener:PowerLimitProfile ; saref:profileHasPrice ?profile_price . "
-        - " ?profile_price saref:hasValue ?price ; saref:isMeasuredIn unit:PLN . "
-        - " ?dp   rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ;"
-        - " rdf:type  ubmarket:update_rate_60min ; saref:hasResult ?dpr."
-        - " ?dpr saref:hasValue ?value ; saref:isMeasuredIn om:megawatt . "
-    price-offer:
-      name: "price-offer"
-      description: " . ASK/POST"
-      required_bindings:
-        - "flex_request"
-        - "dp"
-        - "flex_profile"
-        - "ts"
-        - "profile_price"
-        - "dpr"
-        - "value"
-      prefixes:
-        xsd: "http://www.w3.org/2001/XMLSchema#"
-        saref: "https://saref.etsi.org/core/"
-        om: "http://www.ontology-of-units-of-measure.org/resource/om-2/"
-      pattern:
-        - " ?flex_request rdf:type s4ener:FlexOffer ; s4ener:producedBy  kb:market  ; s4ener:includes  ?dp ; "
-        - "  s4ener:includes  ?cost_dp ; s4ener:includes ?flex_profile ; s4ener:hasRecipient ?asset_manager ."
-        - " ?asset_manager rdf:type foaf:Agent . "
-        - " ?flex_profile rdf:type s4ener:PowerLimitProfile ; saref:profileHasPrice ?profile_price  . "
-        - " ?profile_price saref:hasValue ?price ; saref:isMeasuredIn unit:PLN . "
-        - " ?dp   rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ;"
-        - " rdf:type  ubmarket:update_rate_60min ; saref:hasResult ?dpr."
-        - " ?dpr saref:hasValue ?value ; saref:isMeasuredIn om:megawatt ."
-        - " ?cost_dp   rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ;"
-        - " rdf:type  ubmarket:update_rate_60min ; saref:hasResult ?cost_dpr."
-        - " ?cost_dpr saref:hasValue ?cost_value ; saref:isMeasuredIn  ubmarket:PLNPerKilowatt ."
-    contract:
-      name: "contract"
-      description: " "
-      prefixes:
-        xsd: "http://www.w3.org/2001/XMLSchema#"
-        saref: "https://saref.etsi.org/core/"
-        om: "http://www.ontology-of-units-of-measure.org/resource/om-2/"
-      pattern:
-        - " ?flex_request rdf:type s4ener:FlexOffer; s4ener:producedBy   kb:market ; ubmarket:subjectTo ?contract ; s4ener:hasRecipient ?asset_manager   . "
-        - " ?contract rdf:type s4mari:Document   ."
-        - "  kb:market ubmarket:hasMarketType ubmarket:CapacityMarket ."
-        - "  ?asset_manager rdf:type foaf:Agent."
-        - " ?flex_request s4ener:includes ?flex_dp ; s4ener:includes ?cost_dp . "
-        - " ?flex_dp rdf:type s4ener:DataPoint ;   s4ener:hasEffectivePeriod ?period_uri ; saref:hasResult ?flex_dpr ."
-        - " ?cost_dp rdf:type s4ener:DataPoint ;   s4ener:hasEffectivePeriod ?period_uri ; saref:hasResult ?cost_dpr ."
-        - " ?flex_dpr saref:hasValue ?flex_value ; saref:isMeasuredIn om:megawatt ."
-        - " ?cost_dpr saref:hasValue ?cost_value ; saref:isMeasuredIn ubmarket:PLNPerKilowatt ."
-        - " ?period_uri  rdf:type time:Interval; time:hasBeginning ?ts_date_from; time:hasEnd ?ts_date_to . "
-    contract-ack:
-      name: "contract-ack"
-      description: " "
-      prefixes:
-        xsd: "http://www.w3.org/2001/XMLSchema#"
-      pattern:
-        - " ?ack_execution  rdf:type saref:ProcedureExecution ; targets ?contract ; saref:hasResult ?result; saref:hasResultTime  ?ack_time ."
-        - " ?contract rdf:type s4mari:Document  ."
-        - " ?result rdf:type s4mari:Event ; saref:hasFeatureKind s4mari:Acknowledgement ; saref:hasState s4mari:IsCompleted "
+    # flex-offer:
+    #   name: "flex-offer"
+    #   description: " share flex offer . POST/ASK"
+    #   prefixes:
+    #     xsd: "http://www.w3.org/2001/XMLSchema#"
+    #     saref: "https://saref.etsi.org/core/"
+    #     om: "http://www.ontology-of-units-of-measure.org/resource/om-2/"
+    #   pattern:
+    #     - " ?flex_request rdf:type s4ener:FlexOffer ;  s4ener:producedBy  kb:market ; s4ener:includes  ?dp ; "
+    #     - " s4ener:includes ?flex_profile ; s4ener:hasRecipient ?asset_manager ."
+    #     - " ?asset_manager rdf:type foaf:Agent . "
+    #     - " ?flex_profile rdf:type s4ener:PowerLimitProfile ; saref:profileHasPrice ?profile_price . "
+    #     - " ?profile_price saref:hasValue ?price ; saref:isMeasuredIn unit:PLN . "
+    #     - " ?dp   rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ;"
+    #     - " rdf:type  ubmarket:update_rate_60min ; saref:hasResult ?dpr."
+    #     - " ?dpr saref:hasValue ?value ; saref:isMeasuredIn om:megawatt . "
+    # price-offer:
+    #   name: "price-offer"
+    #   description: " . ASK/POST"
+    #   required_bindings:
+    #     - "flex_request"
+    #     - "dp"
+    #     - "flex_profile"
+    #     - "ts"
+    #     - "profile_price"
+    #     - "dpr"
+    #     - "value"
+    #   prefixes:
+    #     xsd: "http://www.w3.org/2001/XMLSchema#"
+    #     saref: "https://saref.etsi.org/core/"
+    #     om: "http://www.ontology-of-units-of-measure.org/resource/om-2/"
+    #   pattern:
+    #     - " ?flex_request rdf:type s4ener:FlexOffer ; s4ener:producedBy  kb:market  ; s4ener:includes  ?dp ; "
+    #     - "  s4ener:includes  ?cost_dp ; s4ener:includes ?flex_profile ; s4ener:hasRecipient ?asset_manager ."
+    #     - " ?asset_manager rdf:type foaf:Agent . "
+    #     - " ?flex_profile rdf:type s4ener:PowerLimitProfile ; saref:profileHasPrice ?profile_price  . "
+    #     - " ?profile_price saref:hasValue ?price ; saref:isMeasuredIn unit:PLN . "
+    #     - " ?dp   rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ;"
+    #     - " rdf:type  ubmarket:update_rate_60min ; saref:hasResult ?dpr."
+    #     - " ?dpr saref:hasValue ?value ; saref:isMeasuredIn om:megawatt ."
+    #     - " ?cost_dp   rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ;"
+    #     - " rdf:type  ubmarket:update_rate_60min ; saref:hasResult ?cost_dpr."
+    #     - " ?cost_dpr saref:hasValue ?price_value ; saref:isMeasuredIn  ubmarket:PLNPerKilowatt ."
+    # contract:
+      # name: "contract"
+      # description: " "
+      # prefixes:
+      #   xsd: "http://www.w3.org/2001/XMLSchema#"
+      #   saref: "https://saref.etsi.org/core/"
+      #   om: "http://www.ontology-of-units-of-measure.org/resource/om-2/"
+      # pattern:
+      #   - " ?flex_request rdf:type s4ener:FlexOffer; s4ener:producedBy   kb:market ; ubmarket:subjectTo ?contract ; s4ener:hasRecipient ?asset_manager   . "
+      #   - " ?contract rdf:type s4mari:Document   ."
+      #   - "  kb:market ubmarket:hasMarketType ubmarket:CapacityMarket ."
+      #   - "  ?asset_manager rdf:type foaf:Agent."
+      #   - " ?flex_request s4ener:includes ?flex_dp ; s4ener:includes ?cost_dp . "
+      #   - " ?flex_dp rdf:type s4ener:DataPoint ;   s4ener:hasEffectivePeriod ?period_uri ; saref:hasResult ?flex_dpr ."
+      #   - " ?cost_dp rdf:type s4ener:DataPoint ;   s4ener:hasEffectivePeriod ?period_uri ; saref:hasResult ?cost_dpr ."
+      #   - " ?flex_dpr saref:hasValue ?flex_value ; saref:isMeasuredIn om:megawatt ."
+      #   - " ?cost_dpr saref:hasValue ?price_value ; saref:isMeasuredIn ubmarket:PLNPerKilowatt ."
+      #   - " ?period_uri  rdf:type time:Interval; time:hasBeginning ?ts_date_from; time:hasEnd ?ts_date_to . "
+    # contract-ack:
+    #   name: "contract-ack"
+    #   description: " "
+    #   prefixes:
+    #     xsd: "http://www.w3.org/2001/XMLSchema#"
+    #   pattern:
+    #     - " ?ack_execution  rdf:type saref:ProcedureExecution ; targets ?contract ; saref:hasResult ?result; saref:hasResultTime  ?ack_time ."
+    #     - " ?contract rdf:type s4mari:Document  ."
+    #     - " ?result rdf:type s4mari:Event ; saref:hasFeatureKind s4mari:Acknowledgement ; saref:hasState s4mari:IsCompleted "
 
-    capacity-market-price:
-      name: "capacity-market-price"
-      description: "Price information"
-      prefixes:
-        xsd: "http://www.w3.org/2001/XMLSchema#"
-      pattern:
-        - "  kb:market  rdf:type ubmarket:Market ; ubmarket:hasMarketType ubmarket:CapacityMarket  ."
-        - " ?offer_uri rdf:type ubmarket:MarketTimeSeries ."
-        - " ?offer_uri s4ener:producedBy  kb:market."
-        - " ?dp s4ener:belongsToTimeSeries ?offer_uri ; rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ;"
-        - "   s4ener:hasEffectivePeriod ?duration_uri ; saref:hasResult ?dpr."
-        - " ?duration_uri  rdf:type  time:Interval; time:hasXSDDuration ?duration ."
-        - " ?dpr saref:hasValue ?value ; saref:isMeasuredIn ubmarket:PLNPerKilowatt  ."
+    # capacity-market-price:
+    #   name: "capacity-market-price"
+    #   description: "Price information"
+    #   prefixes:
+    #     xsd: "http://www.w3.org/2001/XMLSchema#"
+    #   pattern:
+    #     - "  kb:market  rdf:type ubmarket:Market ; ubmarket:hasMarketType ubmarket:CapacityMarket  ."
+    #     - " ?offer_uri rdf:type ubmarket:MarketTimeSeries ."
+    #     - " ?offer_uri s4ener:producedBy  kb:market."
+    #     - " ?dp s4ener:belongsToTimeSeries ?offer_uri ; rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ;"
+    #     - "   s4ener:hasEffectivePeriod ?duration_uri ; saref:hasResult ?dpr."
+    #     - " ?duration_uri  rdf:type  time:Interval; time:hasXSDDuration ?duration ."
+    #     - " ?dpr saref:hasValue ?value ; saref:isMeasuredIn ubmarket:PLNPerKilowatt  ."
