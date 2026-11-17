@@ -17,9 +17,25 @@ knowledge_engine:
   include:
     - "../../fm/flexibility_manager.yaml"
   graph_patterns:
+    # baseline-request:
+    #   name: "baseline-request"
+    #   description: "Get baseline requirement - minimum time span to calculate reference profile . POST/REACT"
+    #   prefixes:
+    #   required_bindings:
+    #     - "ts_uri"
+    #     - "ts_baseline_to"
+    #     - "ts_baseline_from"
+    #   pattern:
+    #     - " ?baseline_ts_uri rdf:type s4ener:TimeSeries ; s4ener:producedBy  ?market ; s4ener:hasUsage s4ener:BaseLine ; "
+    #     - " rdf:type  ubmarket:update_rate_60min ;  s4ener:hasEffectivePeriod  ?baseline_interval_uri ."
+    #     - " ?ts_uri rdf:type s4ener:TimeSeries ; s4ener:producedBy  ?asset_manager ;  rdf:type  ubmarket:update_rate_60min ."
+    #     - " ?baseline_interval_uri rdf:type time:Interval; time:hasBeginning ?ts_baseline_from; time:hasEnd ?ts_baseline_to ."
+    #   result_pattern:
+    #     - " ?ts_uri s4ener:hasEffectivePeriod  ?day_interval_uri . "
+    #     - " ?day_interval_uri rdf:type time:Interval; time:hasBeginning ?ts_day_from; time:hasEnd ?ts_day_to ."
     baseline-request:
       name: "baseline-request"
-      description: "Get baseline requirement - minimum time span to calculate reference profile . POST/REACT"
+      description: "Get baseline requirement - minimum time span to calculate reference profile . ASK/ANSWER"
       prefixes:
       required_bindings:
         - "ts_uri"
@@ -29,8 +45,7 @@ knowledge_engine:
         - " ?baseline_ts_uri rdf:type s4ener:TimeSeries ; s4ener:producedBy  ?market ; s4ener:hasUsage s4ener:BaseLine ; "
         - " rdf:type  ubmarket:update_rate_60min ;  s4ener:hasEffectivePeriod  ?baseline_interval_uri ."
         - " ?ts_uri rdf:type s4ener:TimeSeries ; s4ener:producedBy  ?asset_manager ;  rdf:type  ubmarket:update_rate_60min ."
-        - " ?baseline_interval_uri rdf:type time:Interval; time:hasBeginning ?ts_baseline_from; time:hasEnd ?ts_baseline_to ."
-      result_pattern:
+        - " ?baseline_interval_uri rdf:type time:Interval; time:hasBeginning ?ts_baseline_from; time:hasEnd ?ts_baseline_to ." 
         - " ?ts_uri s4ener:hasEffectivePeriod  ?day_interval_uri . "
         - " ?day_interval_uri rdf:type time:Interval; time:hasBeginning ?ts_day_from; time:hasEnd ?ts_day_to ."
     baseline:
@@ -42,8 +57,13 @@ knowledge_engine:
         - " ?ts_uri rdf:type s4ener:TimeSeries ;  s4ener:producedBy  ?asset_manager. "
         - " ?dp s4ener:belongsToTimeSeries ?ts_uri ; rdf:type s4ener:DataPoint ; saref:hasTimestamp ?ts ;"
         - "  rdf:type  ubmarket:update_rate_60min ; saref:hasResult ?dpr."
-        - " ?dpr saref:hasValue ?value ; saref:isMeasuredIn om:kilowatt ."
-      result_pattern:
+        - " ?dpr saref:hasValue ?value ; saref:isMeasuredIn om:kilowatt ." 
+    baseline-response:
+      name: "baseline-response"
+      description: "Calc baseline . POST/REACT"
+      prefixes:
+        om: "http://www.ontology-of-units-of-measure.org/resource/om-2/" 
+      pattern:
         - " ?dp_baseline s4ener:belongsToTimeSeries ?ts_uri ; rdf:type s4ener:DataPoint ;s4ener:hasUsage s4ener:BaseLine ;  "
         - "  saref:hasTimestamp ?ts ;  saref:hasResult ?dpr_baseline."
         - " ?dpr_baseline saref:hasValue ?value_baseline ; saref:isMeasuredIn om:kilowatt ."

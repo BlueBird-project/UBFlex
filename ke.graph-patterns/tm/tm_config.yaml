@@ -17,6 +17,7 @@ knowledge_engine:
     - "../dt/digital_twin.yaml"
     - "./trading_manager.yaml"
     - "../capacity_market/pl/notification.yaml" 
+    - "../capacity_market/pl/contract.yaml" 
   graph_patterns:
     tou-price:
       name: "tou-price"
